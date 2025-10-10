@@ -69,13 +69,18 @@ function include_partial($partial, $data = [])
 function flash_messages()
 {
     if (isset($_SESSION['flash_messages'])) {
+        // Stockage des logs
+        $log_file = __DIR__ . '/logs/app.log';
+        $date = date('Y-m-d H:i:s');
         foreach ($_SESSION['flash_messages'] as $type => $messages) {
             if (is_array($messages)) {
                 foreach ($messages as $message) {
                     echo "<div class='alert alert-$type'>$message</div>";
+                    error_log("[$date] [$type] $message\n", 3, $log_file);
                 }
             } else {
                 echo "<div class='alert alert-$type'>$messages</div>";
+                error_log("[$date] [$type] $messages\n", 3, $log_file);
             }
         }
         unset($_SESSION['flash_messages']);
