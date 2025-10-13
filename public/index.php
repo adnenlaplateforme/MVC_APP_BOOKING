@@ -1,10 +1,10 @@
 <?php
+
 /**
  * Point d'entrée principal de l'application PHP MVC
  * 
  * Ce fichier initialise l'application et lance le système de routing
  */
-
 // Démarrer la session
 session_start();
 
@@ -21,6 +21,7 @@ require_once INCLUDE_PATH . '/helpers.php';
 
 // Charger les modèles
 require_once MODEL_PATH . '/user_model.php';
+require_once MODEL_PATH . '/booking_model.php';
 
 // Activer l'affichage des erreurs en développement
 // À désactiver en production
@@ -28,4 +29,4 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 // Lancer le système de routing
-dispatch(); 
+dispatch();

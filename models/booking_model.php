@@ -45,7 +45,17 @@ function verify_disponibility($date_start, $date_end)
 function insertBooking($title, $description, $start, $end, $id_user)
 {
     try {
-        //code...
+        $query = "INSERT INTO reservations(titre, description, debut, fin, id_utilisateur) VALUES (?,?,?,?,?)";
+        if (db_execute($query, [$title, $description, $start, $end, $id_user])) {
+            return db_last_insert_id();
+        }
     } catch (Exception $e) {
+        if ($e instanceof PDOException) {
+            $msg = "Insert Error. Booking title: $title | Type: PDOException | Message: " . $e->getMessage();
+        } else {
+            $msg = $e->getMessage();
+        }
+        set_flash('error', "Erreur lors de l'insertion dans la base de données");
+        error_logging(ErrorType::Error, $msg);
     }
 }
