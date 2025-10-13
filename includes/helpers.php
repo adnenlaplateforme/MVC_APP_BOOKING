@@ -240,6 +240,32 @@ function generate_slug($string)
     return trim($string, '-');
 }
 
+/**
+ *  custom functions starting from here
+ */
+
+enum ErrorType: string
+{
+    case Warning = "Warning";
+    case Error = "Error";
+    case Info = "Info";
+    case Debug = "Debug";
+}
+
+function error_logging(ErrorType $type, string $message)
+{
+    date_default_timezone_set('Europe/Paris');
+    $log_file = LOG_PATH . '/app.log';
+    if (!file_exists($log_file)) {
+        if (!is_dir(LOG_PATH)) {
+            mkdir(LOG_PATH, 0755, true);
+        }
+        touch($log_file);
+    }
+    $date = date('Y-m-d H:i:s');
+    error_log("[$date] [$type->value] $message\n", 3, $log_file);
+}
+
 /*
  * Récupérer la semaine en cours
  */

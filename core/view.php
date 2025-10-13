@@ -76,11 +76,10 @@ function flash_messages()
             if (is_array($messages)) {
                 foreach ($messages as $message) {
                     echo "<div class='alert alert-$type'>$message</div>";
-                    error_log("[$date] [$type] $message\n", 3, $log_file);
+                    error_logging(ErrorType::Info, $message);
                 }
             } else {
                 echo "<div class='alert alert-$type'>$messages</div>";
-                error_log("[$date] [$type] $messages\n", 3, $log_file);
             }
         }
         unset($_SESSION['flash_messages']);
