@@ -20,8 +20,11 @@ require_once CORE_PATH . '/view.php';
 require_once INCLUDE_PATH . '/helpers.php';
 
 // Charger les modèles
-require_once MODEL_PATH . '/user_model.php';
-require_once MODEL_PATH . '/booking_model.php';
+//require_once MODEL_PATH . '/user_model.php';
+//require_once MODEL_PATH . '/booking_model.php';
+foreach (glob(MODEL_PATH . '/*.php') as $model_file) {
+    require_once $model_file;
+}
 
 // Activer l'affichage des erreurs en développement
 // À désactiver en production
